@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Carousel Website</title>
+  <style>
+    /* === General Styles === */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 2rem;
+    }
+
+    /* === Carousel Container === */
+    .carousel {
+      position: relative;
+      max-width: 800px;
+      margin: 2rem auto;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .carousel img {
+      width: 100%;
+      display: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .carousel img.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* === Buttons === */
+    .btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 0.8rem 1rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    /* === Footer === */
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    🌄 Simple Photo Carousel Website
+  </header>
+
+  <div class="carousel">
+    <button class="btn prev">&#10094;</button>
+    <img src="https://picsum.photos/id/1015/800/400" class="active" alt="Image 1">
+    <img src="https://picsum.photos/id/1025/800/400" alt="Image 2">
+    <img src="https://picsum.photos/id/1035/800/400" alt="Image 3">
+    <button class="btn next">&#10095;</button>
+  </div>
+
+  <footer>
+    © 2025 Simple Website | Made with ❤️ by You
+  </footer>
+
+  <script>
+    const images = document.querySelectorAll('.carousel img');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    let index = 0;
+
+    function showImage(i) {
+      images.forEach(img => img.classList.remove('active'));
+      images[i].classList.add('active');
+    }
+
+    prevBtn.addEventListener('click', () => {
+      index = (index - 1 + images.length) % images.length;
+      showImage(index);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      index = (index + 1) % images.length;
+      showImage(index);
+    });
+
+    // Optional: auto-slide every 3 seconds
+    setInterval(() => {
+      index = (index + 1) % images.length;
+      showImage(index);
+    }, 3000);
+  </script>
+
+</body>
+</html>
