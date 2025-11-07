@@ -322,12 +322,16 @@ section {
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
 }
 
-.mehendi-img {
-    background-image: url('https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800');
+.tilak-img {
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('tilak-img.png') center/cover;
+    background-size: cover;
+    background-position: center;
 }
 
-.sangeet-img {
-    background-image: url('https://images.unsplash.com/photo-1604017011826-d3b4c23f8914?w=800');
+.haldi-img {
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('haldi-img.png') center/cover;
+    background-size: cover;
+    background-position: center;
 }
 
 .wedding-img {
