@@ -335,11 +335,15 @@ section {
 }
 
 .wedding-img {
-    background-image: url('https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800');
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('wedding-img.png') center/cover;
+    background-size: cover;
+    background-position: center;
 }
 
 .reception-img {
-    background-image: url('https://images.unsplash.com/photo-1519167758481-83f29da8ee31?w=800');
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('reception-img.png') center/cover;
+    background-size: cover;
+    background-position: center;
 }
 
 .event-details {
