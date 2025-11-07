@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join Rohit & Vishakha as they celebrate their wedding on 30th November 2025 in Jamshedpur. Details, events, gallery and venue map.">
     <title>Rohit & Vishakha Wedding</title>
     <style>
         * {
@@ -59,7 +60,8 @@
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1600') center/cover;
+                        /* url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1600') center/cover; */
+                        url('assets/home-bg.png') center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -116,6 +118,55 @@
             margin-top: 30px;
             letter-spacing: 2px;
             font-weight: 300;
+        }
+
+        /* Countdown styles */
+        .countdown {
+            margin: 20px auto 0;
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .countdown-item {
+            background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 12px 18px;
+            border-radius: 10px;
+            min-width: 84px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            transform-origin: center;
+        }
+
+        .countdown-value {
+            display: block;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .countdown-label {
+            display: block;
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0.96); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        .countdown-item.update {
+            animation: pop 400ms ease;
         }
 
         .scroll-indicator {
@@ -368,6 +419,20 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
+        /* Make embedded map responsive and accessible */
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 12px;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid rgba(240,147,251,0.6);
+            outline-offset: 3px;
+        }
+
         /* RSVP Section */
         #rsvp {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
@@ -475,6 +540,7 @@
             .rsvp-form {
                 padding: 30px 20px;
             }
+            .map-container { height: 260px; }
         }
     </style>
 </head>
@@ -496,6 +562,24 @@
                 Rohit <span class="ampersand">&</span> Vishakha
             </h1>
             <p class="date">30th November 2025</p>
+            <div id="countdown" class="countdown" aria-label="Countdown to wedding">
+                <div class="countdown-item" aria-hidden="false">
+                    <span class="countdown-value" id="days">--</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item" aria-hidden="false">
+                    <span class="countdown-value" id="hours">--</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item" aria-hidden="false">
+                    <span class="countdown-value" id="minutes">--</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item" aria-hidden="false">
+                    <span class="countdown-value" id="seconds">--</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
             <p style="margin-top: 20px; font-size: 18px; letter-spacing: 2px;">BIHAR, INDIA</p>
         </div>
         <div class="scroll-indicator"></div>
@@ -555,8 +639,8 @@
                 <div class="event-details">
                     <h3>Wedding Ceremony</h3>
                     <div class="event-info">
-                        <div><strong>Date:</strong> 30th December 2025</div>
-                        <div><strong>Time:</strong> 9:00 PM Onwards</div>
+                        <div><strong>Date:</strong> 30th November 2025</div>
+                        <div><strong>Time:</strong> 10:30 AM</div>
                         <div><strong>Venue:</strong> Bride's Residence</div>
                         <div style="margin-top: 15px; color: rgba(255,255,255,0.6);">Witness our sacred union and bless us on our special day</div>
                     </div>
@@ -596,9 +680,10 @@
             <h3>📍 Jamshedpur</h3>
             <p>Jamshedpur - 831001<br>Jharkhand, India</p>
             <!-- <p style="margin-top: 20px;">A stunning venue in the heart of Kolkata, featuring elegant architecture, spacious halls, and world-class amenities. Easily accessible from all parts of the city with ample parking space.</p> -->
-            <div class="map-container">
-                <p>🗺️ Map View (Click to view on Google Maps)</p>
+            <div class="map-container" aria-hidden="false">
+                <iframe src="https://www.google.com/maps?q=Jamshedpur,+Jharkhand,+India&output=embed" title="Map of Jamshedpur" loading="lazy" referrerpolicy="no-referrer-when-downgrade" aria-label="Map showing Jamshedpur"></iframe>
             </div>
+            <p style="margin-top:12px;"><a href="https://www.google.com/maps/search/?api=1&query=Jamshedpur+Jharkhand+India" target="_blank" rel="noopener noreferrer">Open Jamshedpur in Google Maps</a></p>
         </div>
     </section>
 
@@ -640,7 +725,7 @@
 
     <footer>
         <p>✨ Rohit & Vishakha ✨</p>
-        <p>30th November 2025</p>
+    <p>30th November 2025 · 10:30 AM</p>
         <p style="margin-top: 20px; font-size: 14px;">Looking forward to celebrating with you!</p>
     </footer>
 
@@ -681,6 +766,55 @@
                 window.open(url, '_blank');
             });
         });
+
+        // Countdown to wedding: 30 Nov 2025 10:30 (local time)
+        (function() {
+            const target = new Date(2025, 10, 30, 10, 30, 0); // month is 0-indexed: 10 -> November
+            const els = {
+                days: document.getElementById('days'),
+                hours: document.getElementById('hours'),
+                minutes: document.getElementById('minutes'),
+                seconds: document.getElementById('seconds')
+            };
+
+            function pad(n){ return String(n).padStart(2, '0'); }
+
+            function updateCountdown() {
+                const now = new Date();
+                let diff = Math.max(0, target - now);
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                diff -= days * (1000 * 60 * 60 * 24);
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                diff -= hours * (1000 * 60 * 60);
+                const minutes = Math.floor(diff / (1000 * 60));
+                diff -= minutes * (1000 * 60);
+                const seconds = Math.floor(diff / 1000);
+
+                setIfChanged(els.days, days);
+                setIfChanged(els.hours, pad(hours));
+                setIfChanged(els.minutes, pad(minutes));
+                setIfChanged(els.seconds, pad(seconds));
+            }
+
+            function setIfChanged(el, value){
+                if(!el) return;
+                const old = el.textContent;
+                const newVal = String(value);
+                if(old !== newVal){
+                    el.textContent = newVal;
+                    const parent = el.parentElement;
+                    if(parent){
+                        parent.classList.remove('update');
+                        void parent.offsetWidth; // force reflow
+                        parent.classList.add('update');
+                        setTimeout(()=> parent.classList.remove('update'), 600);
+                    }
+                }
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        })();
     </script>
 </body>
 </html>
