@@ -569,27 +569,33 @@ body.dark-theme .gallery-item:hover::after {
 }
 
 .g1 {
-    background-image: url('https://images.unsplash.com/photo-1525268771113-32d9e9021a97?w=600');
+    background-image: url('gallery-1.jpg');
 }
 
 .g2 {
-    background-image: url('https://images.unsplash.com/photo-1606800052052-a08af7148866?w=600');
+    background-image: url('gallery-2.jpg');
 }
 
 .g3 {
-    background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600');
+    background-image: url('gallery-3.jpg');
 }
 
 .g4 {
-    background-image: url('https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=600');
+    background-image: url('gallery-4.jpg');
 }
 
 .g5 {
-    background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?w=600');
+    background-image: url('gallery-5.jpg');
 }
 
 .g6 {
-    background-image: url('https://images.unsplash.com/photo-1519167758481-83f29da8ee31?w=600');
+    background-image: url('gallery-6.jpg');
+}
+.g7 {
+    background-image: url('gallery-7.jpg');
+}
+.g8 {
+    background-image: url('gallery-8.jpg');
 }
 
 /* Venue Section */
