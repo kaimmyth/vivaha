@@ -10,25 +10,26 @@
     --bg-secondary: #C7D3BA;
     --bg-tertiary: #EBDDA9;
     --accent: #DBA394;
+    --carousel-bg: #EBDDA9;
     --text-primary: #25251E;
-    --text-secondary: rgba(37, 37, 30, 0.7);
-    --nav-bg: rgba(236, 218, 215, 0.95);
-    --nav-bg-scrolled: rgba(236, 218, 215, 0.98);
-    --nav-shadow: rgba(37, 37, 30, 0.2);
-    --card-bg: rgba(255, 255, 255, 0.7);
-    --card-bg-light: rgba(255, 255, 255, 0.5);
-    --card-border: rgba(219, 163, 148, 0.3);
-    --countdown-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
-    --countdown-border: rgba(219, 163, 148, 0.3);
-    --countdown-shadow: rgba(37, 37, 30, 0.2);
-    --hero-overlay: linear-gradient(rgba(236, 218, 215, 0.3), rgba(199, 211, 186, 0.3));
-    --hero-radial: radial-gradient(circle at 50% 50%, transparent 0%, rgba(236, 218, 215, 0.4) 100%);
+    --text-secondary: #25251eb3;
+    --nav-bg: #ecdad7f2;
+    --nav-bg-scrolled: #ecdad7fa;
+    --nav-shadow: #25251e33;
+    --card-bg: #ffffffb3;
+    --card-bg-light: #ffffff80;
+    --card-border: #dba3944d;
+    --countdown-bg: linear-gradient(180deg, #ffffffcc, #ffffff99);
+    --countdown-border: #dba3944d;
+    --countdown-shadow: #25251e33;
+    --hero-overlay: linear-gradient(#ecdad74d, #c7d3ba4d);
+    --hero-radial: radial-gradient(circle at 50% 50%, transparent 0%, #ecdad766 100%);
     --story-bg: linear-gradient(180deg, #C7D3BA 0%, #EBDDA9 100%);
     --events-bg: linear-gradient(180deg, #EBDDA9 0%, #ECDAD7 100%);
     --gallery-bg: linear-gradient(180deg, #C7D3BA 0%, #EBDDA9 100%);
     --venue-bg: linear-gradient(180deg, #ECDAD7 0%, #C7D3BA 100%);
     --footer-bg: #25251E;
-    --footer-text: rgba(236, 218, 215, 0.8);
+    --footer-text: #ecdad7cc;
 }
 
 /* Dark Theme (Old Palette) */
@@ -37,25 +38,26 @@ body.dark-theme {
     --bg-secondary: #0f0c29;
     --bg-tertiary: #302b63;
     --accent: #edb981;
+    --carousel-bg: #252e41;
     --text-primary: #fff;
-    --text-secondary: rgba(255, 255, 255, 0.8);
-    --nav-bg: rgba(0, 0, 0, 0.9);
-    --nav-bg-scrolled: rgba(0, 0, 0, 0.95);
-    --nav-shadow: rgba(255, 255, 255, 0.1);
-    --card-bg: rgba(255, 255, 255, 0.05);
-    --card-bg-light: rgba(255, 255, 255, 0.02);
-    --card-border: rgba(255, 255, 255, 0.1);
-    --countdown-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-    --countdown-border: rgba(255, 255, 255, 0.08);
-    --countdown-shadow: rgba(0, 0, 0, 0.6);
-    --hero-overlay: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
-    --hero-radial: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+    --text-secondary: #ffffffcc;
+    --nav-bg: #000000e6;
+    --nav-bg-scrolled: #000000f2;
+    --nav-shadow: #ffffff1a;
+    --card-bg: #ffffff0d;
+    --card-bg-light: #ffffff05;
+    --card-border: #ffffff1a;
+    --countdown-bg: linear-gradient(180deg, #ffffff0f, #ffffff05);
+    --countdown-border: #ffffff14;
+    --countdown-shadow: #00000099;
+    --hero-overlay: linear-gradient(#00000066, #00000066);
+    --hero-radial: radial-gradient(circle at 50% 50%, transparent 0%, #00000080 100%);
     --story-bg: linear-gradient(180deg, #443020 0%, #3E2F27 100%);
     --events-bg: linear-gradient(180deg, #3E2F27 0%, #312E34 100%);
     --gallery-bg: linear-gradient(180deg, #312E34 0%, #242D41 100%);
     --venue-bg: linear-gradient(180deg, #242D41 0%, #172C4E 100%);
     --footer-bg: #000;
-    --footer-text: rgba(255, 255, 255, 0.6);
+    --footer-text: #ffffff99;
 }
 
 body {
@@ -596,13 +598,13 @@ body.dark-theme .event-info-description {
 }
 
 .carousel-btn {
-    background: var(--accent);
+    background: var(--carousel-bg);
     color: var(--text-primary);
     border: none;
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    font-size: 36px;
+    font-size: 24px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -612,7 +614,7 @@ body.dark-theme .event-info-description {
     z-index: 10;
     box-shadow: 0 4px 15px var(--countdown-shadow);
     line-height: 50px;
-    padding: 0;
+    padding: 0 0 3px 0;
     margin: 0;
     font-family: Arial, sans-serif;
     font-weight: bold;
@@ -620,7 +622,7 @@ body.dark-theme .event-info-description {
 
 .carousel-btn:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 20px var(--accent);
+    box-shadow: 0 6px 20px var(--carousel-bg);
     opacity: 0.9;
 }
 
@@ -635,7 +637,7 @@ body.dark-theme .event-info-description {
 }
 
 body.dark-theme .carousel-btn {
-    background: var(--accent);
+    background: var(--carousel-bg);
     color: #fff;
     border: 2px solid rgba(255, 255, 255, 0.2);
 }
