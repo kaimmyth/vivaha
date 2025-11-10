@@ -24,10 +24,10 @@
     --countdown-shadow: #25251e33;
     --hero-overlay: linear-gradient(#ecdad74d, #c7d3ba4d);
     --hero-radial: radial-gradient(circle at 50% 50%, transparent 0%, #ecdad766 100%);
-    --events-bg: linear-gradient(180deg, #C7D3BA 0%, #EBDDA9 100%);
-    --gallery-bg: linear-gradient(180deg, #EBDDA9 0%, #ECDAD7 100%);
-    --story-bg: linear-gradient(180deg, #ECDAD7 0%, #EBDDA9 100%);
-    --venue-bg: linear-gradient(180deg, #EBDDA9 0%, #C7D3BA 100%);
+    --events-bg: linear-gradient(180deg, #ECDAD7 0%, #EBDDA9 100%);
+    --gallery-bg: linear-gradient(180deg, #EBDDA9 0%, #C7D3BA 100%);
+    --story-bg: linear-gradient(180deg, #C7D3BA 0%, #EBDDA9 100%);
+    --venue-bg: linear-gradient(180deg, #EBDDA9 0%, #ECDAD7 100%);
     --footer-bg: #25251E;
     --footer-text: #ecdad7cc;
 }
