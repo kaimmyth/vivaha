@@ -18,6 +18,54 @@ window.addEventListener('scroll', () => {
         navbar.classList.remove('scrolled');
     }
 });
+// Scroll spy: highlight nav link for section most in view
+(function() {
+	const sections = document.querySelectorAll('section[id]');
+	const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
+	if (sections.length === 0 || navLinks.length === 0) return;
+
+	const linkById = new Map(navLinks.map(a => [a.getAttribute('href').slice(1), a]));
+	function setActive(id) {
+		navLinks.forEach(a => a.classList.remove('active'));
+		const link = linkById.get(id);
+		if (link) link.classList.add('active');
+	}
+
+	let currentId = null;
+	const observer = new IntersectionObserver(
+		(entries) => {
+			// Select the section with the highest visibility
+			let best = null;
+			for (const entry of entries) {
+				if (!entry.isIntersecting) continue;
+				if (!best || entry.intersectionRatio > best.intersectionRatio) {
+					best = entry;
+				}
+			}
+			if (best && best.target.id !== currentId) {
+				currentId = best.target.id;
+				setActive(currentId);
+			}
+		},
+		{
+			root: null,
+			// Offset for fixed navbar and to switch sooner
+			// top: -80px (approx nav height), bottom: -40% of viewport
+			rootMargin: '-80px 0px -40% 0px',
+			threshold: [0.1, 0.25, 0.5, 0.75]
+		}
+	);
+
+	sections.forEach(sec => observer.observe(sec));
+
+	// Immediate feedback on click; observer will correct during/after scroll
+	navLinks.forEach(a => {
+		a.addEventListener('click', () => {
+			const id = a.getAttribute('href').slice(1);
+			setActive(id);
+		});
+	});
+})();
 
 // Form submission
 function handleSubmit(e) {
