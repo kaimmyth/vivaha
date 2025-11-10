@@ -341,7 +341,7 @@ section {
     transition: transform 0.3s;
 }
 .story-item1 {
-    background: linear-gradient(rgba(236, 218, 215, 0.4), rgba(236, 218, 215, 0.4)), url('story-item-1.png') center/cover;
+    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('story-item-1.png') center/cover;
     background-size: cover;
     background-position: center;
 }
@@ -353,7 +353,7 @@ body.dark-theme .story-item1 {
 }
 
 .story-item2 {
-    background: linear-gradient(rgba(199, 211, 186, 0.4), rgba(199, 211, 186, 0.4)), url('story-item-2.png') center/cover;
+    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('story-item-2.png') center/cover;
     background-size: cover;
     background-position: center;
 }
@@ -365,7 +365,7 @@ body.dark-theme .story-item2 {
 }
 
 .story-item3 {
-    background: linear-gradient(rgba(235, 221, 169, 0.4), rgba(235, 221, 169, 0.4)), url('story-item-3.png') center/cover;
+    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('story-item-3.png') center/cover;
     background-size: cover;
     background-position: center;
 }
