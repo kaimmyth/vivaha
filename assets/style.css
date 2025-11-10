@@ -430,8 +430,12 @@ body.dark-theme .story-item3 {
 }
 
 body.dark-theme .event-card {
-    background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, rgba(245, 87, 108, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(49, 47, 52, 0.85) 0%, rgba(36, 45, 65, 0.9) 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .event-details {
+    background: linear-gradient(180deg, rgba(49, 47, 52, 0.95) 0%, rgba(36, 45, 65, 0.98) 100%);
 }
 
 .event-card:hover {
