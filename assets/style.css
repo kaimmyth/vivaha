@@ -187,7 +187,7 @@ section {
 .hero h1 {
     font-size: 80px;
     font-weight: 300;
-    margin-bottom: 20px;
+    margin-bottom: 15px;  /* reduced from 20px */
     font-family: 'Georgia', serif;
     letter-spacing: 3px;
 }
@@ -201,14 +201,14 @@ section {
 
 .hero .date {
     font-size: 24px;
-    margin-top: 30px;
+    margin-top: 20px;  /* reduced from 30px */
     letter-spacing: 2px;
     font-weight: 300;
 }
 
 /* Countdown styles */
 .countdown {
-    margin: 20px auto 0;
+    margin: 15px auto 0;  /* reduced from 20px */
     display: flex;
     gap: 14px;
     justify-content: center;
@@ -291,14 +291,14 @@ section {
 
 /* Section Styles */
 section {
-    padding: 100px 20px;
+    padding: 60px 20px;  /* reduced from 100px */
     position: relative;
 }
 
 .section-title {
     text-align: center;
     font-size: 48px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;  /* reduced from 60px */
     color: var(--text-primary);
     font-weight: 300;
     letter-spacing: 2px;
@@ -310,7 +310,7 @@ section {
     width: 100px;
     height: 3px;
     background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    margin: 20px auto;
+    margin: 12px auto;  /* reduced from 20px */
 }
 
 /* Our Story Section */
@@ -321,7 +321,7 @@ section {
 .story-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
+    gap: 25px;  /* reduced from 40px */
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -331,12 +331,12 @@ section {
     backdrop-filter: blur(10px);
     background-color: var(--card-bg);
     background: var(--card-bg-light);
-    border-radius: 15px; /* Rounded corners for a modern look */
+    border-radius: 10px; /* Rounded corners for a modern look */
     border: 1px solid var(--card-border);
     box-shadow: 0 4px 6px var(--countdown-shadow), 0 1px 3px var(--countdown-shadow);
     margin: 15px; /* Adjust spacing between cards */
     overflow: hidden; /* Ensures content stays within rounded corners */
-    padding: 40px;
+    padding: 25px;
     position: relative;
     transition: transform 0.3s;
 }
@@ -396,15 +396,28 @@ body.dark-theme .story-item3 {
     background: var(--events-bg);
 }
 
-.events-container {
+.events-carousel-wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.events-container {
+    display: flex;
+    overflow: hidden;
+    gap: 25px;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    flex: 1;
 }
 
 .event-card {
+    flex: 0 0 calc(33.333% - 17px); /* Show 3 items, accounting for gap */
+    min-width: 0;
+    scroll-snap-align: start;
     background: linear-gradient(135deg, var(--card-bg) 0%, var(--card-bg-light) 100%);
     backdrop-filter: blur(10px);
     border-radius: 20px;
@@ -505,32 +518,122 @@ body.dark-theme .reception-img {
 }
 
 .event-details {
-    padding: 30px;
+    padding: 24px;
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 16px;
 }
 
 .event-details h3 {
     color: var(--accent);
-    font-size: 28px;
-    margin-bottom: 15px;
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.5px;
 }
 
 .event-info {
-    color: var(--text-primary);
-    line-height: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     flex: 1;
 }
 
-.event-info div {
-    margin: 10px 0;
+.event-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
 }
 
-.event-info strong {
+body.dark-theme .event-info-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.event-info-item:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.event-info-item strong {
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 60px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.event-info-item span {
     color: var(--text-primary);
-    display: inline-block;
-    width: 80px;
+    font-size: 15px;
+    font-weight: 400;
+    flex: 1;
+    line-height: 1.5;
+}
+
+.event-info-description {
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+body.dark-theme .event-info-description {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.carousel-btn {
+    background: var(--accent);
+    color: var(--text-primary);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    flex-shrink: 0;
+    z-index: 10;
+    box-shadow: 0 4px 15px var(--countdown-shadow);
+    line-height: 50px;
+    padding: 0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+.carousel-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px var(--accent);
+    opacity: 0.9;
+}
+
+.carousel-btn:active {
+    transform: scale(0.95);
+}
+
+.carousel-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+body.dark-theme .carousel-btn {
+    background: var(--accent);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Gallery Section */
@@ -543,7 +646,7 @@ body.dark-theme .reception-img {
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    gap: 15px;  /* reduced from 20px */
 }
 
 .gallery-item {
@@ -620,7 +723,7 @@ body.dark-theme .gallery-item:hover::after {
     background: var(--card-bg);
     backdrop-filter: blur(10px);
     border-radius: 20px;
-    padding: 50px;
+    padding: 30px;  /* reduced from 50px */
     border: 1px solid var(--card-border);
 }
 
@@ -632,7 +735,7 @@ body.dark-theme .gallery-item:hover::after {
 
 .venue-container p {
     color: var(--text-primary);
-    line-height: 2;
+    line-height: 1.6;  /* reduced from 2 */
     font-size: 18px;
 }
 
@@ -641,7 +744,7 @@ body.dark-theme .gallery-item:hover::after {
 }
 
 .map-container {
-    margin-top: 30px;
+    margin-top: 20px;  /* reduced from 30px */
     height: 400px;
     background: var(--card-bg-light);
     border-radius: 15px;
@@ -681,19 +784,19 @@ button:focus-visible {
     margin: 0 auto;
     background: var(--card-bg);
     backdrop-filter: blur(10px);
-    padding: 50px;
+    padding: 35px;  /* reduced from 50px */
     border-radius: 20px;
     border: 1px solid var(--card-border);
 }
 
 .form-group {
-    margin-bottom: 25px;
+    margin-bottom: 18px;  /* reduced from 25px */
 }
 
 .form-group label {
     display: block;
     color: var(--text-primary);
-    margin-bottom: 10px;
+    margin-bottom: 8px;  /* reduced from 10px */
     font-weight: 500;
 }
 
@@ -701,7 +804,7 @@ button:focus-visible {
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 15px;
+    padding: 12px;  /* reduced from 15px */
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 10px;
@@ -755,7 +858,7 @@ footer {
     background: var(--footer-bg);
     color: var(--footer-text);
     text-align: center;
-    padding: 40px 20px;
+    padding: 30px 20px;  /* reduced from 40px */
 }
 
 /* Theme Toggle Button */
@@ -884,12 +987,12 @@ footer p {
     }
 
     section {
-        padding: 60px 15px;
+        padding: 40px 15px;  /* reduced from 60px 15px */
     }
 
     .section-title {
         font-size: 28px;
-        margin-bottom: 40px;
+        margin-bottom: 30px;  /* reduced from 40px */
     }
 
     .story-grid {
@@ -912,23 +1015,55 @@ footer p {
         line-height: 1.6;
     }
 
+    .events-carousel-wrapper {
+        gap: 10px;
+    }
+
     .events-container {
-        grid-template-columns: 1fr;
-        gap: 25px;
+        gap: 15px;
+    }
+
+    .event-card {
+        flex: 0 0 calc(100% - 10px); /* Show 1 item on mobile */
+    }
+
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
     }
 
     .event-details {
         padding: 20px;
+        gap: 14px;
     }
 
     .event-details h3 {
         font-size: 22px;
-        margin-bottom: 12px;
     }
 
     .event-info {
+        gap: 10px;
+    }
+
+    .event-info-item {
+        padding: 8px 0;
+        gap: 10px;
+    }
+
+    .event-info-item strong {
+        font-size: 12px;
+        min-width: 55px;
+    }
+
+    .event-info-item span {
         font-size: 14px;
-        line-height: 1.8;
+    }
+
+    .event-info-description {
+        font-size: 13px;
+        padding-top: 12px;
+        margin-top: 4px;
     }
 
     .gallery-grid {
@@ -1047,12 +1182,12 @@ footer p {
     }
 
     section {
-        padding: 80px 20px;
+        padding: 50px 20px;  /* reduced from 80px 20px */
     }
 
     .section-title {
         font-size: 36px;
-        margin-bottom: 50px;
+        margin-bottom: 35px;  /* reduced from 50px */
     }
 
     .story-grid {
@@ -1065,8 +1200,11 @@ footer p {
     }
 
     .events-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 20px;
+    }
+
+    .event-card {
+        flex: 0 0 calc(50% - 10px); /* Show 2 items on tablets */
     }
 
     .gallery-grid {
@@ -1107,11 +1245,12 @@ footer p {
     }
 
     section {
-        padding: 90px 30px;
+        padding: 60px 30px;  /* reduced from 90px 30px */
     }
 
     .section-title {
         font-size: 42px;
+        margin-bottom: 35px;  /* add if not present */
     }
 
     .story-grid {
@@ -1124,8 +1263,11 @@ footer p {
     }
 
     .events-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 35px;
+        gap: 25px;
+    }
+
+    .event-card {
+        flex: 0 0 calc(33.333% - 17px); /* Show 3 items */
     }
 
     .gallery-grid {
@@ -1144,9 +1286,7 @@ footer p {
 
 /* Large Devices (desktops, 1025px and up) - Default styles apply */
 @media (min-width: 1025px) {
-    .events-container {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    }
+    /* Carousel styles already defined above */
 
     .gallery-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -1155,7 +1295,7 @@ footer p {
 
 /* Extra Large Devices (large desktops, 1440px and up) */
 @media (min-width: 1440px) {
-    .events-container {
+    .events-carousel-wrapper {
         max-width: 1400px;
     }
 

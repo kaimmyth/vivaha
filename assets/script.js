@@ -229,3 +229,161 @@ setTimeout(equalizeEventCardHeights, 100);
     });
 })();
 
+// Events Carousel
+(function() {
+    const carousel = document.querySelector('.events-container');
+    const prevBtn = document.querySelector('.carousel-btn-prev');
+    const nextBtn = document.querySelector('.carousel-btn-next');
+    const cards = document.querySelectorAll('.event-card');
+    
+    if (!carousel || !prevBtn || !nextBtn || cards.length === 0) return;
+    
+    let currentIndex = 0;
+    let autoScrollInterval = null;
+    let isUserInteracting = false;
+    
+    function getVisibleCards() {
+        const containerWidth = carousel.offsetWidth;
+        const cardWidth = cards[0] ? cards[0].offsetWidth + 25 : 0; // card width + gap
+        if (cardWidth === 0) return 3; // fallback
+        return Math.floor(containerWidth / cardWidth) || 1;
+    }
+    
+    function updateCarousel(instant = false) {
+        const visibleCards = getVisibleCards();
+        const maxIndex = Math.max(0, cards.length - visibleCards);
+        
+        // Infinite loop: wrap around
+        if (currentIndex < 0) {
+            currentIndex = maxIndex;
+        } else if (currentIndex > maxIndex) {
+            currentIndex = 0;
+        }
+        
+        const cardWidth = cards[0] ? cards[0].offsetWidth + 25 : 0;
+        const scrollPosition = currentIndex * cardWidth;
+        
+        carousel.scrollTo({
+            left: scrollPosition,
+            behavior: instant ? 'auto' : 'smooth'
+        });
+        
+        // Remove disabled states for infinite loop
+        prevBtn.disabled = false;
+        nextBtn.disabled = false;
+    }
+    
+    function handleResize() {
+        const visibleCards = getVisibleCards();
+        const maxIndex = Math.max(0, cards.length - visibleCards);
+        
+        // Clamp currentIndex if it's out of bounds
+        if (currentIndex > maxIndex) {
+            currentIndex = maxIndex;
+        }
+        
+        updateCarousel();
+    }
+    
+    function startAutoScroll() {
+        // Clear any existing interval
+        if (autoScrollInterval) {
+            clearInterval(autoScrollInterval);
+        }
+        
+        // Start auto-scroll (every 4 seconds)
+        autoScrollInterval = setInterval(() => {
+            if (!isUserInteracting) {
+                const visibleCards = getVisibleCards();
+                const maxIndex = Math.max(0, cards.length - visibleCards);
+                
+                // Move to next, loop if at end
+                if (currentIndex >= maxIndex) {
+                    currentIndex = 0;
+                } else {
+                    currentIndex++;
+                }
+                
+                updateCarousel();
+            }
+        }, 4000);
+    }
+    
+    function stopAutoScroll() {
+        if (autoScrollInterval) {
+            clearInterval(autoScrollInterval);
+            autoScrollInterval = null;
+        }
+    }
+    
+    function pauseAutoScroll() {
+        isUserInteracting = true;
+        stopAutoScroll();
+        
+        // Resume after 5 seconds of no interaction
+        setTimeout(() => {
+            isUserInteracting = false;
+            startAutoScroll();
+        }, 5000);
+    }
+    
+    prevBtn.addEventListener('click', () => {
+        const visibleCards = getVisibleCards();
+        const maxIndex = Math.max(0, cards.length - visibleCards);
+        
+        // Infinite loop: go to end if at start
+        if (currentIndex <= 0) {
+            currentIndex = maxIndex;
+        } else {
+            currentIndex--;
+        }
+        
+        updateCarousel();
+        pauseAutoScroll();
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        const visibleCards = getVisibleCards();
+        const maxIndex = Math.max(0, cards.length - visibleCards);
+        
+        // Infinite loop: go to start if at end
+        if (currentIndex >= maxIndex) {
+            currentIndex = 0;
+        } else {
+            currentIndex++;
+        }
+        
+        updateCarousel();
+        pauseAutoScroll();
+    });
+    
+    // Pause auto-scroll on hover
+    carousel.addEventListener('mouseenter', () => {
+        pauseAutoScroll();
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+        isUserInteracting = false;
+        startAutoScroll();
+    });
+    
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(handleResize, 250);
+    });
+    
+    // Initialize on load
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            updateCarousel(true);
+            startAutoScroll();
+        }, 100);
+    });
+    
+    // Initialize immediately
+    updateCarousel(true);
+    startAutoScroll();
+})();
+
