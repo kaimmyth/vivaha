@@ -24,10 +24,10 @@
     --countdown-shadow: #25251e33;
     --hero-overlay: linear-gradient(#ecdad74d, #c7d3ba4d);
     --hero-radial: radial-gradient(circle at 50% 50%, transparent 0%, #ecdad766 100%);
-    --story-bg: linear-gradient(180deg, #C7D3BA 0%, #EBDDA9 100%);
-    --events-bg: linear-gradient(180deg, #EBDDA9 0%, #ECDAD7 100%);
-    --gallery-bg: linear-gradient(180deg, #C7D3BA 0%, #EBDDA9 100%);
-    --venue-bg: linear-gradient(180deg, #ECDAD7 0%, #C7D3BA 100%);
+    --events-bg: linear-gradient(180deg, #C7D3BA 0%, #EBDDA9 100%);
+    --gallery-bg: linear-gradient(180deg, #EBDDA9 0%, #ECDAD7 100%);
+    --story-bg: linear-gradient(180deg, #ECDAD7 0%, #EBDDA9 100%);
+    --venue-bg: linear-gradient(180deg, #EBDDA9 0%, #C7D3BA 100%);
     --footer-bg: #25251E;
     --footer-text: #ecdad7cc;
 }
@@ -52,9 +52,9 @@ body.dark-theme {
     --countdown-shadow: #00000099;
     --hero-overlay: linear-gradient(#00000066, #00000066);
     --hero-radial: radial-gradient(circle at 50% 50%, transparent 0%, #00000080 100%);
-    --story-bg: linear-gradient(180deg, #443020 0%, #3E2F27 100%);
-    --events-bg: linear-gradient(180deg, #3E2F27 0%, #312E34 100%);
-    --gallery-bg: linear-gradient(180deg, #312E34 0%, #242D41 100%);
+    --events-bg: linear-gradient(180deg, #443020 0%, #3E2F27 100%);
+    --gallery-bg: linear-gradient(180deg, #3E2F27 0%, #312E34 100%);
+    --story-bg: linear-gradient(180deg, #312E34 0%, #242D41 100%);
     --venue-bg: linear-gradient(180deg, #242D41 0%, #172C4E 100%);
     --footer-bg: #000;
     --footer-text: #ffffff99;
