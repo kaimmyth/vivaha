@@ -85,7 +85,7 @@ document.querySelectorAll('.gallery-item').forEach(item => {
 
 // Countdown to wedding: 30 Nov 2025 10:30 (local time)
 (function() {
-    const target = new Date(2025, 10, 30, 10, 30, 0); // month is 0-indexed: 10 -> November
+    const target = new Date(2025, 10, 30, 22, 0, 0); // month is 0-indexed: 10 -> November
     const els = {
         days: document.getElementById('days'),
         hours: document.getElementById('hours'),
