@@ -24,6 +24,10 @@
             <li><a href="#venue">Venue</a></li>
             <!-- <li><a href="#rsvp">RSVP</a></li> -->
         </ul>
+        <button class="download-btn" id="downloadBtn" aria-label="Download Gallery">
+            <span class="download-icon">⬇</span>
+            <span class="download-text">Download</span>
+        </button>
     </nav>
 
     <section id="home" class="hero">
@@ -163,6 +167,7 @@
             <div class="gallery-item g6"></div>
             <div class="gallery-item g7"></div>
             <div class="gallery-item g8"></div>
+            <div class="gallery-item g9"></div>
         </div>
     </section>
 
@@ -248,6 +253,38 @@
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
         <span id="themeIcon">☀️</span>
     </button>
+
+    <!-- Download Gallery Modal -->
+    <div class="gallery-modal" id="galleryModal" role="dialog" aria-labelledby="galleryModalTitle" aria-hidden="true">
+        <div class="gallery-modal-backdrop" id="galleryModalBackdrop"></div>
+        <div class="gallery-modal-content">
+            <div class="gallery-modal-header">
+                <h2 class="gallery-modal-title" id="galleryModalTitle">Download Gallery</h2>
+                <button class="gallery-modal-close" id="galleryModalClose" aria-label="Close gallery">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="gallery-modal-grid" id="galleryModalGrid">
+                <!-- Gallery images will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Lightbox -->
+    <div class="image-lightbox" id="imageLightbox" role="dialog" aria-label="Image preview" aria-hidden="true">
+        <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose" aria-label="Close image">
+                <span>×</span>
+            </button>
+            <img class="lightbox-image" id="lightboxImage" src="" alt="Gallery image">
+            <button class="lightbox-download" id="lightboxDownload" aria-label="Download image">
+                <span class="download-icon-large">⬇</span>
+            </button>
+        </div>
+        <!-- Hidden anchor for download -->
+        <a id="hiddenDownloadLink" download style="display: none;"></a>
+    </div>
 
     <script src="assets/script.js"></script>
 </body>

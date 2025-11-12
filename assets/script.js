@@ -387,3 +387,203 @@ setTimeout(equalizeEventCardHeights, 100);
     startAutoScroll();
 })();
 
+// Download Gallery Modal Functionality
+(function() {
+    const downloadBtn = document.getElementById('downloadBtn');
+    const galleryModal = document.getElementById('galleryModal');
+    const galleryModalClose = document.getElementById('galleryModalClose');
+    const galleryModalBackdrop = document.getElementById('galleryModalBackdrop');
+    const galleryModalGrid = document.getElementById('galleryModalGrid');
+    const imageLightbox = document.getElementById('imageLightbox');
+    const lightboxBackdrop = document.getElementById('lightboxBackdrop');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxDownload = document.getElementById('lightboxDownload');
+    const hiddenDownloadLink = document.getElementById('hiddenDownloadLink');
+    const body = document.body;
+
+    // Gallery images array - using the same images from the gallery section
+    const galleryImages = [
+        'assets/gallery-1.jpg',
+        'assets/gallery-2.jpg',
+        'assets/gallery-3.jpg',
+        'assets/gallery-4.jpg',
+        'assets/gallery-5.jpg',
+        'assets/gallery-6.jpg',
+        'assets/gallery-7.jpg',
+        'assets/gallery-8.jpg'
+    ];
+
+    // Track scroll position and modal state
+    let scrollPosition = 0;
+    let isScrollDisabled = false;
+
+    // Function to disable body scroll
+    function disableBodyScroll() {
+        if (!isScrollDisabled) {
+            scrollPosition = window.scrollY;
+            body.classList.add('modal-open');
+            // Prevent scroll on mobile
+            body.style.position = 'fixed';
+            body.style.top = `-${scrollPosition}px`;
+            body.style.width = '100%';
+            isScrollDisabled = true;
+        }
+    }
+
+    // Function to enable body scroll
+    function enableBodyScroll() {
+        // Only enable if no modals are open
+        const galleryModalOpen = galleryModal.classList.contains('active');
+        const lightboxOpen = imageLightbox.classList.contains('active');
+        
+        if (isScrollDisabled && !galleryModalOpen && !lightboxOpen) {
+            body.classList.remove('modal-open');
+            body.style.position = '';
+            body.style.top = '';
+            body.style.width = '';
+            window.scrollTo(0, scrollPosition);
+            isScrollDisabled = false;
+        }
+    }
+
+    // Function to open gallery modal
+    function openGalleryModal() {
+        // Populate gallery grid with images
+        galleryModalGrid.innerHTML = '';
+        
+        // Gallery images array - using the wedding card images
+        const galleryImages = [
+            'assets/wedding-card-1.jpg',
+            'assets/wedding-card-2.jpg',
+            'assets/wedding-card-3.jpg',
+            'assets/wedding-card-4.jpg',
+            'assets/wedding-card-5.jpg'
+        ];
+        galleryImages.forEach((imageSrc, index) => {
+            const item = document.createElement('div');
+            item.className = 'gallery-modal-item';
+            item.style.backgroundImage = `url(${imageSrc})`;
+            item.setAttribute('data-image', imageSrc);
+            item.setAttribute('data-index', index);
+            item.setAttribute('role', 'button');
+            item.setAttribute('tabindex', '0');
+            item.setAttribute('aria-label', `View image ${index + 1}`);
+            
+            // Add click event
+            item.addEventListener('click', () => openLightbox(imageSrc));
+            // Add keyboard support
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openLightbox(imageSrc);
+                }
+            });
+            
+            galleryModalGrid.appendChild(item);
+        });
+        // Show modal
+        galleryModal.classList.add('active');
+        galleryModal.setAttribute('aria-hidden', 'false');
+        disableBodyScroll();
+    }
+
+    // Function to close gallery modal
+    function closeGalleryModal() {
+        galleryModal.classList.remove('active');
+        galleryModal.setAttribute('aria-hidden', 'true');
+        // Check if lightbox is still open, if not, enable scroll
+        enableBodyScroll();
+    }
+
+    // Function to open lightbox with image
+    function openLightbox(imageSrc) {
+        lightboxImage.src = imageSrc;
+        lightboxImage.alt = 'Gallery image';
+        lightboxDownload.setAttribute('data-download', imageSrc);
+        imageLightbox.classList.add('active');
+        imageLightbox.setAttribute('aria-hidden', 'false');
+        // Disable body scroll when lightbox is open
+        disableBodyScroll();
+    }
+
+    // Function to close lightbox
+    function closeLightbox() {
+        imageLightbox.classList.remove('active');
+        imageLightbox.setAttribute('aria-hidden', 'true');
+        lightboxImage.src = '';
+        // Check if gallery modal is still open, if not, enable scroll
+        enableBodyScroll();
+    }
+
+    // Function to download image
+    function downloadImage(imageSrc) {
+        // Create a temporary anchor element for download
+        const link = hiddenDownloadLink;
+        link.href = imageSrc;
+        
+        // Extract filename from path
+        const filename = imageSrc.split('/').pop() || 'gallery-image.jpg';
+        link.download = filename;
+        
+        // Trigger download
+        link.click();
+    }
+
+    // Event listeners
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', openGalleryModal);
+    }
+
+    if (galleryModalClose) {
+        galleryModalClose.addEventListener('click', closeGalleryModal);
+    }
+
+    if (galleryModalBackdrop) {
+        galleryModalBackdrop.addEventListener('click', closeGalleryModal);
+    }
+
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    if (lightboxBackdrop) {
+        lightboxBackdrop.addEventListener('click', closeLightbox);
+    }
+
+    if (lightboxDownload) {
+        lightboxDownload.addEventListener('click', function() {
+            const imageSrc = this.getAttribute('data-download');
+            if (imageSrc) {
+                downloadImage(imageSrc);
+            }
+        });
+    }
+
+    // Close modals on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (imageLightbox.classList.contains('active')) {
+                closeLightbox();
+            } else if (galleryModal.classList.contains('active')) {
+                closeGalleryModal();
+            }
+        }
+    });
+
+    // Prevent modal from closing when clicking inside the modal content
+    const galleryModalContent = galleryModal.querySelector('.gallery-modal-content');
+    if (galleryModalContent) {
+        galleryModalContent.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+
+    const lightboxContent = imageLightbox.querySelector('.lightbox-content');
+    if (lightboxContent) {
+        lightboxContent.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+})();
+
