@@ -48,7 +48,7 @@
 /* Dark Theme (Old Palette) */
 body.dark-theme {
     --bg-primary: #000;
-    --bg-secondary: #0f0c29;
+    --bg-secondary: #172C4E;
     --bg-tertiary: #302b63;
     --accent: #edb981;
     --carousel-bg: #433022;
@@ -837,6 +837,7 @@ body.dark-theme .gallery-item:hover::after {
 
 .venue-container a {
     color: var(--accent);
+    margin-bottom: 12px;
 }
 
 .map-container {
@@ -862,6 +863,31 @@ body.dark-theme .map-container {
     height: 100%;
     border: 0;
     border-radius: 12px;
+}
+
+.venue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.directions-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+}
+
+.directions-btn:hover {
+    background-color: var(--accent);
+    transform: translateY(-2px);
 }
 
 a:focus-visible,
