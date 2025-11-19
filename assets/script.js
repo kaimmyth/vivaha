@@ -441,17 +441,21 @@ setTimeout(equalizeEventCardHeights, 100);
     const hiddenDownloadLink = document.getElementById('hiddenDownloadLink');
     const body = document.body;
 
-    // Gallery images array - using the same images from the gallery section
-    const galleryImages = [
-        'assets/gallery-1.jpg',
-        'assets/gallery-2.jpg',
-        'assets/gallery-3.jpg',
-        'assets/gallery-4.jpg',
-        'assets/gallery-5.jpg',
-        'assets/gallery-6.jpg',
-        'assets/gallery-7.jpg',
-        'assets/gallery-8.jpg'
+    // Lightbox slider elements
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+
+    // Wedding card images
+    const weddingCardImages = [
+        'assets/wedding-card-1.jpg',
+        'assets/wedding-card-2.jpg',
+        'assets/wedding-card-3.jpg',
+        'assets/wedding-card-4.jpg',
+        'assets/wedding-card-5.jpg'
     ];
+    let currentLightboxIndex = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
 
     // Track scroll position and modal state
     let scrollPosition = 0;
@@ -462,7 +466,6 @@ setTimeout(equalizeEventCardHeights, 100);
         if (!isScrollDisabled) {
             scrollPosition = window.scrollY;
             body.classList.add('modal-open');
-            // Prevent scroll on mobile
             body.style.position = 'fixed';
             body.style.top = `-${scrollPosition}px`;
             body.style.width = '100%';
@@ -472,7 +475,6 @@ setTimeout(equalizeEventCardHeights, 100);
 
     // Function to enable body scroll
     function enableBodyScroll() {
-        // Only enable if no modals are open
         const galleryModalOpen = galleryModal.classList.contains('active');
         const lightboxOpen = imageLightbox.classList.contains('active');
         
@@ -488,40 +490,26 @@ setTimeout(equalizeEventCardHeights, 100);
 
     // Function to open gallery modal
     function openGalleryModal() {
-        // Populate gallery grid with images
         galleryModalGrid.innerHTML = '';
-        
-        // Gallery images array - using the wedding card images
-        const galleryImages = [
-            'assets/wedding-card-1.jpg',
-            'assets/wedding-card-2.jpg',
-            'assets/wedding-card-3.jpg',
-            'assets/wedding-card-4.jpg',
-            'assets/wedding-card-5.jpg'
-        ];
-        galleryImages.forEach((imageSrc, index) => {
+        weddingCardImages.forEach((imageSrc, index) => {
             const item = document.createElement('div');
             item.className = 'gallery-modal-item';
             item.style.backgroundImage = `url(${imageSrc})`;
-            item.setAttribute('data-image', imageSrc);
             item.setAttribute('data-index', index);
             item.setAttribute('role', 'button');
             item.setAttribute('tabindex', '0');
             item.setAttribute('aria-label', `View image ${index + 1}`);
             
-            // Add click event
-            item.addEventListener('click', () => openLightbox(imageSrc));
-            // Add keyboard support
+            item.addEventListener('click', () => openLightbox(index));
             item.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    openLightbox(imageSrc);
+                    openLightbox(index);
                 }
             });
             
             galleryModalGrid.appendChild(item);
         });
-        // Show modal
         galleryModal.classList.add('active');
         galleryModal.setAttribute('aria-hidden', 'false');
         disableBodyScroll();
@@ -531,18 +519,31 @@ setTimeout(equalizeEventCardHeights, 100);
     function closeGalleryModal() {
         galleryModal.classList.remove('active');
         galleryModal.setAttribute('aria-hidden', 'true');
-        // Check if lightbox is still open, if not, enable scroll
         enableBodyScroll();
     }
 
-    // Function to open lightbox with image
-    function openLightbox(imageSrc) {
+    // Function to show a specific image in the lightbox
+    function showLightboxImage(index) {
+        if (index < 0 || index >= weddingCardImages.length) return;
+        
+        currentLightboxIndex = index;
+        const imageSrc = weddingCardImages[currentLightboxIndex];
+        
         lightboxImage.src = imageSrc;
-        lightboxImage.alt = 'Gallery image';
+        lightboxImage.alt = `Wedding invitation ${currentLightboxIndex + 1}`;
         lightboxDownload.setAttribute('data-download', imageSrc);
+
+        if (lightboxPrev && lightboxNext) {
+            lightboxPrev.disabled = currentLightboxIndex === 0;
+            lightboxNext.disabled = currentLightboxIndex === weddingCardImages.length - 1;
+        }
+    }
+
+    // Function to open lightbox
+    function openLightbox(index) {
         imageLightbox.classList.add('active');
         imageLightbox.setAttribute('aria-hidden', 'false');
-        // Disable body scroll when lightbox is open
+        showLightboxImage(index);
         disableBodyScroll();
     }
 
@@ -551,78 +552,79 @@ setTimeout(equalizeEventCardHeights, 100);
         imageLightbox.classList.remove('active');
         imageLightbox.setAttribute('aria-hidden', 'true');
         lightboxImage.src = '';
-        // Check if gallery modal is still open, if not, enable scroll
         enableBodyScroll();
     }
 
     // Function to download image
     function downloadImage(imageSrc) {
-        // Create a temporary anchor element for download
         const link = hiddenDownloadLink;
         link.href = imageSrc;
-        
-        // Extract filename from path
         const filename = imageSrc.split('/').pop() || 'gallery-image.jpg';
         link.download = filename;
-        
-        // Trigger download
         link.click();
     }
 
+    // Swipe gesture handler for lightbox
+    function handleSwipeGesture() {
+        const swipeThreshold = 50;
+        if (touchEndX < touchStartX - swipeThreshold) {
+            // Swiped left
+            showLightboxImage(currentLightboxIndex + 1);
+        } else if (touchEndX > touchStartX + swipeThreshold) {
+            // Swiped right
+            showLightboxImage(currentLightboxIndex - 1);
+        }
+    }
+
     // Event listeners
-    if (downloadBtn) {
-        downloadBtn.addEventListener('click', openGalleryModal);
-    }
-
-    if (galleryModalClose) {
-        galleryModalClose.addEventListener('click', closeGalleryModal);
-    }
-
-    if (galleryModalBackdrop) {
-        galleryModalBackdrop.addEventListener('click', closeGalleryModal);
-    }
-
-    if (lightboxClose) {
-        lightboxClose.addEventListener('click', closeLightbox);
-    }
-
-    if (lightboxBackdrop) {
-        lightboxBackdrop.addEventListener('click', closeLightbox);
-    }
-
+    if (downloadBtn) downloadBtn.addEventListener('click', openGalleryModal);
+    if (galleryModalClose) galleryModalClose.addEventListener('click', closeGalleryModal);
+    if (galleryModalBackdrop) galleryModalBackdrop.addEventListener('click', closeGalleryModal);
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+    if (lightboxBackdrop) lightboxBackdrop.addEventListener('click', closeLightbox);
+    
+    if (lightboxPrev) lightboxPrev.addEventListener('click', () => showLightboxImage(currentLightboxIndex - 1));
+    if (lightboxNext) lightboxNext.addEventListener('click', () => showLightboxImage(currentLightboxIndex + 1));
+    
     if (lightboxDownload) {
         lightboxDownload.addEventListener('click', function() {
             const imageSrc = this.getAttribute('data-download');
-            if (imageSrc) {
-                downloadImage(imageSrc);
-            }
+            if (imageSrc) downloadImage(imageSrc);
         });
     }
 
-    // Close modals on Escape key
+    // Touch listeners for lightbox swipe
+    if (imageLightbox) {
+        imageLightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        imageLightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipeGesture();
+        });
+    }
+
+    // Keyboard navigation and closing modals
     document.addEventListener('keydown', function(e) {
+        if (imageLightbox.classList.contains('active')) {
+            if (e.key === 'ArrowLeft') showLightboxImage(currentLightboxIndex - 1);
+            else if (e.key === 'ArrowRight') showLightboxImage(currentLightboxIndex + 1);
+        }
         if (e.key === 'Escape') {
-            if (imageLightbox.classList.contains('active')) {
-                closeLightbox();
-            } else if (galleryModal.classList.contains('active')) {
-                closeGalleryModal();
-            }
+            if (imageLightbox.classList.contains('active')) closeLightbox();
+            else if (galleryModal.classList.contains('active')) closeGalleryModal();
         }
     });
 
-    // Prevent modal from closing when clicking inside the modal content
+    // Prevent modal from closing when clicking inside content
     const galleryModalContent = galleryModal.querySelector('.gallery-modal-content');
     if (galleryModalContent) {
-        galleryModalContent.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
+        galleryModalContent.addEventListener('click', (e) => e.stopPropagation());
     }
-
     const lightboxContent = imageLightbox.querySelector('.lightbox-content');
     if (lightboxContent) {
-        lightboxContent.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
+        lightboxContent.addEventListener('click', (e) => e.stopPropagation());
     }
 })();
 

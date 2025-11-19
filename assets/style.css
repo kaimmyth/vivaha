@@ -998,7 +998,37 @@ body.dark-theme .theme-toggle {
 footer p {
     margin: 10px 0;
 }
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2.5rem;
+    cursor: pointer;
+    padding: 10px 15px;
+    z-index: 10;
+    transition: background-color 0.3s;
+    line-height: 1;
+}
 
+.lightbox-nav:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.lightbox-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.lightbox-prev {
+    left: 15px;
+}
+
+.lightbox-next {
+    right: 15px;
+}
 /* Responsive Design */
 
 /* Extra Small Devices (phones, 320px - 480px) */
