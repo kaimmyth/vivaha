@@ -241,6 +241,8 @@ setTimeout(equalizeEventCardHeights, 100);
     let currentIndex = 0;
     let autoScrollInterval = null;
     let isUserInteracting = false;
+    let touchStartX = 0;
+    let touchEndX = 0;
     
     function getVisibleCards() {
         const containerWidth = carousel.offsetWidth;
@@ -356,7 +358,44 @@ setTimeout(equalizeEventCardHeights, 100);
         updateCarousel();
         pauseAutoScroll();
     });
-    
+    // Touch event listeners for swipe
+    carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        isUserInteracting = true; // Pause auto-scroll on touch
+        stopAutoScroll();
+    });
+    carousel.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipeGesture();
+        // Resume auto-scroll after a delay
+        setTimeout(() => {
+            isUserInteracting = false;
+            startAutoScroll();
+        }, 5000);
+    });
+    function handleSwipeGesture() {
+        const swipeThreshold = 50; // Minimum distance for a swipe
+        const visibleCards = getVisibleCards();
+        const maxIndex = Math.max(0, cards.length - visibleCards);
+
+        if (touchEndX < touchStartX - swipeThreshold) {
+            // Swiped left
+            if (currentIndex >= maxIndex) {
+                currentIndex = 0;
+            } else {
+                currentIndex++;
+            }
+            updateCarousel();
+        } else if (touchEndX > touchStartX + swipeThreshold) {
+            // Swiped right
+            if (currentIndex <= 0) {
+                currentIndex = maxIndex;
+            } else {
+                currentIndex--;
+            }
+            updateCarousel();
+        }
+    }
     // Pause auto-scroll on hover
     carousel.addEventListener('mouseenter', () => {
         pauseAutoScroll();
