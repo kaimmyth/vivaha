@@ -721,7 +721,7 @@ body.dark-theme .event-info-description {
 body.dark-theme .carousel-btn {
     background: var(--carousel-bg);
     color: #fff;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    /* border: 2px solid rgba(255, 255, 255, 0.2); */
 }
 
 /* Gallery Section */
