@@ -802,6 +802,7 @@ body.dark-theme .gallery-item:hover::after {
 .g8 {
     background-image: url('gallery-8.jpg');
 }
+
 .g9 {
     background-image: url('gallery-9.jpg');
 }
@@ -871,6 +872,7 @@ body.dark-theme .map-container {
     align-items: center;
     margin-bottom: 10px;
 }
+
 .directions-btn {
     display: inline-block;
     padding: 8px 16px;
@@ -1024,6 +1026,7 @@ body.dark-theme .theme-toggle {
 footer p {
     margin: 10px 0;
 }
+
 .lightbox-nav {
     position: absolute;
     top: 50%;
@@ -1055,6 +1058,7 @@ footer p {
 .lightbox-next {
     right: 15px;
 }
+
 /* Responsive Design */
 
 /* Extra Small Devices (phones, 320px - 480px) */
@@ -2151,15 +2155,6 @@ body.dark-theme .gallery-modal-content {
     color: var(--accent);
     transform: scale(1.1);
     box-shadow: 0 4px 15px rgba(237, 185, 129, 0.4);
-}
-
-.download-icon-large {
-    font-size: 20px;
-}
-
-/* Disable body scroll when modal is open */
-body.modal-open {
-    overflow: hidden;
 }
 
 /* Print styles */
