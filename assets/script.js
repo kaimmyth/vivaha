@@ -665,6 +665,7 @@ let openLightbox; // Expose globally for click handlers
 // Countdown to wedding: 30 Nov 2025 10:30 (local time)
 (function () {
     const target = new Date(2025, 10, 30, 22, 0, 0); // month is 0-indexed: 10 -> November
+    const countdownContainer = document.getElementById('countdown');
     const els = {
         days: document.getElementById('days'),
         hours: document.getElementById('hours'),
@@ -672,11 +673,24 @@ let openLightbox; // Expose globally for click handlers
         seconds: document.getElementById('seconds')
     };
 
+    let intervalId = null;
+
     function pad(n) { return String(n).padStart(2, '0'); }
 
     function updateCountdown() {
         const now = new Date();
         let diff = Math.max(0, target - now);
+
+        // Condition added: If timer completes
+        if (diff <= 0) {
+            if (intervalId) clearInterval(intervalId);
+            
+            // Replace content with "Happily Married"
+            // We use the 'countdown-value' class to inherit the same font size and style
+            countdownContainer.innerHTML = '<span class="countdown-value" style="display: block; width: 100%; text-align: center;">Happily Married</span>';
+            return;
+        }
+
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         diff -= days * (1000 * 60 * 60 * 24);
         const hours = Math.floor(diff / (1000 * 60 * 60));
@@ -708,7 +722,7 @@ let openLightbox; // Expose globally for click handlers
     }
 
     updateCountdown();
-    setInterval(updateCountdown, 1000);
+    intervalId = setInterval(updateCountdown, 1000);
 })();
 
 // Equalize story item heights
@@ -796,7 +810,6 @@ setTimeout(equalizeEventCardHeights, 100);
     // Toggle theme on button click
     themeToggle.addEventListener('click', function () {
         body.classList.toggle('dark-theme');
-
         // Update icon based on current theme
         if (body.classList.contains('dark-theme')) {
             themeIcon.textContent = '☀️';
